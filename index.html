@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>视频浏览网站</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #0a0a0a;
+            color: #ffffff;
+            line-height: 1.6;
+        }
+
+        header {
+            background-color: #1a1a1a;
+            padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-align: center;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .video-section {
+            margin: 60px auto;
+            max-width: 800px;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            background-color: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .video-info {
+            margin-top: 30px;
+            padding: 25px;
+            background-color: #1a1a1a;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .video-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: #667eea;
+        }
+
+        .video-info p {
+            color: #cccccc;
+            line-height: 1.8;
+        }
+
+        .stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #764ba2;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #888;
+            margin-top: 5px;
+        }
+
+        footer {
+            background-color: #1a1a1a;
+            padding: 40px 0;
+            text-align: center;
+            margin-top: 80px;
+            border-top: 1px solid #333;
+        }
+
+        .footer-content {
+            color: #888;
+        }
+
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .control-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+
+            .control-btn {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>视频展示中心</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="video-section">
+            <div class="video-container">
+                <video
+                    id="mainVideo"
+                    controls
+                    preload="metadata"
+                    poster="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 450'%3E%3Crect fill='%231a1a1a'/%3E%3Ccircle cx='400' cy='225' r='50' fill='%23667eea' opacity='0.3'/%3E%3Cpath d='M 380 200 L 380 250 L 430 225 Z' fill='%23ffffff'/%3E%3C/svg%3E"
+                >
+                    <source src="张栩的自我介绍.mp4" type="video/mp4">
+                    您的浏览器不支持视频播放。
+                </video>
+
+                <div class="controls">
+                    <button class="control-btn" onclick="togglePlayPause()">
+                        <span id="playPauseIcon">▶</span> 播放/暂停
+                    </button>
+                    <button class="control-btn" onclick="toggleMute()">
+                        <span id="muteIcon">🔊</span> 静音/取消静音
+                    </button>
+                    <button class="control-btn" onclick="toggleFullscreen()">
+                        <span>⛶</span> 全屏
+                    </button>
+                </div>
+            </div>
+
+            <div class="video-info">
+                <h2>张栩的自我介绍</h2>
+                <p>这是一个简短而精彩的自我介绍视频，让我们一起了解视频中的内容。</p>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <div class="stat-value" id="videoDuration">--:--</div>
+                        <div class="stat-label">时长</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="videoSize">-- MB</div>
+                        <div class="stat-label">文件大小</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>&copy; 2024 视频浏览网站. 使用 GitHub Pages 托管</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const video = document.getElementById('mainVideo');
+        const playPauseIcon = document.getElementById('playPauseIcon');
+        const muteIcon = document.getElementById('muteIcon');
+
+        // 获取视频文件信息
+        async function getVideoFileInfo() {
+            const response = await fetch('张栩的自我介绍.mp4', { method: 'HEAD' });
+            const size = parseInt(response.headers.get('content-length')) / (1024 * 1024);
+            document.getElementById('videoSize').textContent = size.toFixed(2) + ' MB';
+        }
+
+        // 播放/暂停控制
+        function togglePlayPause() {
+            if (video.paused) {
+                video.play();
+                playPauseIcon.textContent = '⏸';
+            } else {
+                video.pause();
+                playPauseIcon.textContent = '▶';
+            }
+        }
+
+        // 静音控制
+        function toggleMute() {
+            video.muted = !video.muted;
+            muteIcon.textContent = video.muted ? '🔇' : '🔊';
+        }
+
+        // 全屏控制
+        function toggleFullscreen() {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            }
+        }
+
+        // 更新视频时长
+        video.addEventListener('loadedmetadata', function() {
+            const duration = Math.floor(video.duration);
+            const minutes = Math.floor(duration / 60);
+            const seconds = duration % 60;
+            document.getElementById('videoDuration').textContent =
+                `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        });
+
+        // 监听播放状态变化
+        video.addEventListener('play', function() {
+            playPauseIcon.textContent = '⏸';
+        });
+
+        video.addEventListener('pause', function() {
+            playPauseIcon.textContent = '▶';
+        });
+
+        // 页面加载时获取文件信息
+        getVideoFileInfo();
+    </script>
+</body>
+</html>
