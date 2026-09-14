@@ -1,0 +1,46 @@
+/* 可选的额外样式文件 */
+
+/* 暗色主题增强 */
+body {
+    --primary-color: #667eea;
+    --secondary-color: #764ba2;
+    --bg-color: #0a0a0a;
+    --surface-color: #1a1a1a;
+    --text-color: #ffffff;
+    --text-secondary: #cccccc;
+    --border-color: #333333;
+}
+
+/* 视频播放器样式优化 */
+video::-webkit-media-controls-panel {
+    background: linear-gradient(to top, rgba(26, 26, 26, 0.9), transparent);
+}
+
+video::-webkit-media-controls-play-button {
+    filter: invert(1);
+}
+
+video::-webkit-media-controls-volume-slider {
+    filter: invert(1);
+}
+
+video::-webkit-media-controls-timeline {
+    filter: invert(0.7);
+}
+
+/* 加载动画 */
+@keyframes pulse {
+    0% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.6;
+    }
+}
+
+.loading {
+    animation: pulse 1.5s ease-in-out infinite;
+}
